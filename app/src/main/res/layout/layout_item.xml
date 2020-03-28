@@ -13,7 +13,7 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/my_scroll" />
+            android:src="@drawable/ic_account" />
 
         <LinearLayout
             android:layout_width="match_parent"
