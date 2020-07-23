@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Adapter;
+import android.widget.Toast;
 
 import com.trendyol.bubblescrollbarlib.BubbleScrollBar;
 import com.trendyol.bubblescrollbarlib.BubbleTextProvider;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     BubbleScrollBar scrollBar;
+    private MyAdapter myAdapter;
 
 
     @Override
@@ -42,14 +45,22 @@ public class MainActivity extends AppCompatActivity {
 
         initData();
         Collections.sort(listData);
-        recyclerView.setAdapter(new MyAdapter(listData));
+        myAdapter = new MyAdapter(listData);
+        recyclerView.setAdapter(myAdapter);
+        //recyclerView.setAdapter(new MyAdapter(listData));
+        myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
 
         scrollBar = (BubbleScrollBar) findViewById(R.id.bubbleScrollBar);
         scrollBar.attachToRecyclerView(recyclerView);
         scrollBar.setBubbleTextProvider(new BubbleTextProvider() {
             @Override
             public String provideBubbleText(int i) {
-                return new StringBuilder(listData.get(i).substring(0,1)).toString();
+                return new StringBuilder(listData.get(i).substring(0, 1)).toString();
             }
         });
     }

@@ -8,6 +8,7 @@ import android.widget.Toolbar;
 import com.google.android.material.appbar.AppBarLayout;
 
 public class DescriptionActivity extends AppCompatActivity {
+    private static final String TAG = "DescriptionActivity";
     AppBarLayout appBarLayout;
     Toolbar toolbar;
 
@@ -37,4 +38,5 @@ public class DescriptionActivity extends AppCompatActivity {
             }
         });
     }
+
 }
