@@ -1,13 +1,12 @@
 package com.rujirakongsomran.bubblescrollbaronrecyclerview;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.Adapter;
-import android.widget.Toast;
 
 import com.trendyol.bubblescrollbarlib.BubbleScrollBar;
 import com.trendyol.bubblescrollbarlib.BubbleTextProvider;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyAdapter.OnItemClickListener {
     List<String> listData = new ArrayList<>();
 
     RecyclerView recyclerView;
@@ -45,15 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         initData();
         Collections.sort(listData);
-        myAdapter = new MyAdapter(listData);
+        myAdapter = new MyAdapter(listData, this);
         recyclerView.setAdapter(myAdapter);
         //recyclerView.setAdapter(new MyAdapter(listData));
-        myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-            }
-        });
 
         scrollBar = (BubbleScrollBar) findViewById(R.id.bubbleScrollBar);
         scrollBar.attachToRecyclerView(recyclerView);
@@ -73,9 +66,16 @@ public class MainActivity extends AppCompatActivity {
         listData.add("Emmy");
         listData.add("Notto");
         listData.add("Nun");
-        listData.add("Nutta");
+        listData.add("Nut");
         listData.add("Pat");
         listData.add("Tor");
         listData.add("You");
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        intent.putExtra("name", listData.get(position));
+        startActivity(intent);
     }
 }

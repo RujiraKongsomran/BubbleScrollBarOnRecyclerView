@@ -1,16 +1,17 @@
 package com.rujirakongsomran.bubblescrollbaronrecyclerview;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.Toolbar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.AppBarLayout;
 
 public class DescriptionActivity extends AppCompatActivity {
     private static final String TAG = "DescriptionActivity";
     AppBarLayout appBarLayout;
-    Toolbar toolbar;
+    androidx.appcompat.widget.Toolbar toolbar;
+    TextView tvName;
 
     int colorOffset = 0;
 
@@ -20,10 +21,11 @@ public class DescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_description);
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        //toolbar.setTitle("AndroidSpread");
+        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolBar);
+        toolbar.setTitle("Profile");
+        setSupportActionBar(toolbar);
+        getSourceFromIntent();
 
-        //setSupportActionBar(toolbar);
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -37,6 +39,14 @@ public class DescriptionActivity extends AppCompatActivity {
                 toolbar.setAlpha(colorOffset / 256f);
             }
         });
+    }
+
+    private void getSourceFromIntent() {
+        if (getIntent().hasExtra("name")) {
+            String name = getIntent().getStringExtra("name");
+            tvName = (TextView) findViewById(R.id.tvName);
+            tvName.setText(name);
+        }
     }
 
 }
